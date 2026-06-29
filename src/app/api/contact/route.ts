@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/rateLimit";
 import { sanitizeString, isValidEmail } from "@/lib/sanitize";
+import { sendContactEmail } from "@/lib/mail";
 import { logger } from "@/lib/logger";
 
 export async function POST(request: Request) {
@@ -37,6 +38,12 @@ export async function POST(request: Request) {
     const sanitizedMessage = sanitizeString(message.slice(0, 5000));
 
     logger.info("Contact form submission", { name: sanitizedName, email: sanitizedEmail });
+
+    if (process.env.SMTP_HOST && process.env.CONTACT_TO) {
+      await sendContactEmail(sanitizedName, sanitizedEmail, sanitizedMessage);
+    } else {
+      logger.warn("SMTP not configured — contact message not sent");
+    }
 
     return NextResponse.json(
       { success: true, message: "Message received" },

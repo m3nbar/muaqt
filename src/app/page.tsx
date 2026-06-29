@@ -53,7 +53,7 @@ export default function HomePage() {
           </div>
 
           <AdPlaceholder className="w-full mb-6" />
-          <AdPlaceholder className="w-full mb-6" label="Advertisement (2)" />
+          <AdPlaceholder className="w-full mb-6"  />
 
           <div className="max-w-4xl mx-auto">
             <InboxView />

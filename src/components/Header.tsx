@@ -4,23 +4,29 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
+
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useEmail } from "@/contexts/EmailContext";
 import type { SupportedLocale } from "@/types";
 import { SUPPORTED_LOCALES } from "@/i18n";
 
-const localeFlags: Record<SupportedLocale, string> = {
-  ar: "🇮🇶",
-  en: "🇺🇸",
-  fr: "🇫🇷",
-  es: "🇪🇸",
-  de: "🇩🇪",
-  tr: "🇹🇷",
-  ru: "🇷🇺",
-  zh: "🇨🇳",
-  ja: "🇯🇵",
-};
+function Flag({ locale }: { locale: SupportedLocale }) {
+  if (locale === "ar") {
+    return <img src="/flags/arabian.svg" alt="" className="inline-block w-[18px] h-[18px]" />;
+  }
+  const emojis: Record<Exclude<SupportedLocale, "ar">, string> = {
+    en: "🇬🇧",
+    fr: "🇫🇷",
+    es: "🇪🇸",
+    de: "🇩🇪",
+    tr: "🇹🇷",
+    ru: "🇷🇺",
+    zh: "🇨🇳",
+    ja: "🇯🇵",
+  };
+  return <span className="text-base">{emojis[locale as Exclude<SupportedLocale, "ar">]}</span>;
+}
 
 const localeNames: Record<SupportedLocale, string> = {
   ar: "العربية",
@@ -101,7 +107,7 @@ export default function Header() {
               onClick={() => setLangOpen(!langOpen)}
               className="btn-ghost text-sm px-2 py-2 rounded-lg flex items-center gap-1"
             >
-              <span className="text-base">{localeFlags[locale]}</span>
+              <Flag locale={locale} />
               <span className="hidden sm:inline text-xs text-text-secondary">{locale.toUpperCase()}</span>
             </button>
 
@@ -117,7 +123,7 @@ export default function Header() {
                         : "text-text-secondary hover:text-text-primary hover:bg-surface"
                     }`}
                   >
-                    <span className="text-base">{localeFlags[l]}</span>
+                    <Flag locale={l} />
                     <span>{localeNames[l]}</span>
                   </button>
                 ))}

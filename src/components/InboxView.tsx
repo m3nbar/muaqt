@@ -228,7 +228,7 @@ export default function InboxView() {
                 </div>
               </div>
             </button>,
-            ...((idx + 1) % 3 === 0 ? [<AdPlaceholder key={`ad-${idx}`} className="w-full" label="Advertisement" />] : []),
+            ...((idx + 1) % 3 === 0 ? [<AdPlaceholder key={`ad-${idx}`} className="w-full" />] : []),
           ])
         )}
       </div>
