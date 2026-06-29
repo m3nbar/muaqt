@@ -12,20 +12,18 @@ import type { SupportedLocale } from "@/types";
 import { SUPPORTED_LOCALES } from "@/i18n";
 
 function Flag({ locale }: { locale: SupportedLocale }) {
-  if (locale === "ar") {
-    return <img src="/flags/arabian.svg" alt="" className="inline-block w-[18px] h-[18px]" />;
-  }
-  const emojis: Record<Exclude<SupportedLocale, "ar">, string> = {
-    en: "🇬🇧",
-    fr: "🇫🇷",
-    es: "🇪🇸",
-    de: "🇩🇪",
-    tr: "🇹🇷",
-    ru: "🇷🇺",
-    zh: "🇨🇳",
-    ja: "🇯🇵",
+  const flagMap: Record<SupportedLocale, string> = {
+    ar: "/flags/arabian.svg",
+    en: "/flags/en.svg",
+    fr: "/flags/fr.svg",
+    es: "/flags/es.svg",
+    de: "/flags/de.svg",
+    tr: "/flags/tr.svg",
+    ru: "/flags/ru.svg",
+    zh: "/flags/zh.svg",
+    ja: "/flags/ja.svg",
   };
-  return <span className="text-base">{emojis[locale as Exclude<SupportedLocale, "ar">]}</span>;
+  return <img src={flagMap[locale]} alt="" className="inline-block w-[18px] h-[18px]" />;
 }
 
 const localeNames: Record<SupportedLocale, string> = {
