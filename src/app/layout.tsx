@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { EmailProvider } from "@/contexts/EmailContext";
@@ -61,6 +62,10 @@ export default function RootLayout({
               })();
             `,
           }}
+        />
+        <Script
+          src="https://pl30141370.effectivecpmnetwork.com/e9/36/b8/e936b8e17586d9a15ee652b68ee40e77.js"
+          strategy="afterInteractive"
         />
       </head>
       <body className="bg-bg-dark text-text-primary min-h-screen flex flex-col" suppressHydrationWarning>
