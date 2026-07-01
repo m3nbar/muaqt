@@ -22,7 +22,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
-      <section className="relative">
+      <section className="relative overflow-x-clip">
         <div className="absolute inset-0 bg-grid pointer-events-none" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
