@@ -5,7 +5,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 export default function Footer() {
-  const { t, locale } = useLanguage();
+  const { t, locale, localizePath } = useLanguage();
 
   const footerLinks = [
     { href: "/faq", label: t.nav.faq },
@@ -31,7 +31,7 @@ export default function Footer() {
               {footerLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    href={link.href}
+                    href={localizePath(link.href)}
                     className="text-sm text-text-secondary hover:text-primary transition-colors"
                   >
                     {link.label}

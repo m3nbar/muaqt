@@ -8,7 +8,7 @@ import Logo from "./Logo";
 import Timer from "./Timer";
 
 export default function Sidebar() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, localizePath } = useLanguage();
   const { session, messages, newCount, createNewEmail, loading } = useEmail();
   const pathname = usePathname();
 
@@ -48,22 +48,25 @@ export default function Sidebar() {
       </div>
 
       <div className="flex flex-col gap-0.5">
-        {sidebarLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-              pathname === link.href
-                ? "text-primary bg-primary/10"
-                : "text-text-secondary hover:text-text-primary hover:bg-surface"
-            }`}
-          >
-            {link.label}
-            {link.href === "/inbox" && newCount > 0 && (
-              <span className="badge badge-new text-xs ml-auto">{newCount}</span>
-            )}
-          </Link>
-        ))}
+        {sidebarLinks.map((link) => {
+          const localized = localizePath(link.href);
+          return (
+            <Link
+              key={link.href}
+              href={localized}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                pathname === localized
+                  ? "text-primary bg-primary/10"
+                  : "text-text-secondary hover:text-text-primary hover:bg-surface"
+              }`}
+            >
+              {link.label}
+              {link.href === "/inbox" && newCount > 0 && (
+                <span className="badge badge-new text-xs ml-auto">{newCount}</span>
+              )}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="mt-auto pt-4">

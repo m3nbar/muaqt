@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-import Script from "next/script";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { EmailProvider } from "@/contexts/EmailContext";
@@ -10,30 +8,14 @@ import "./globals.css";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://muaqt.vercel.app";
 
-export const metadata: Metadata = {
-  title: "Muaqt | Temporary Disposable Email Service",
-  description: "Muaqt — Free temporary email service. Create disposable email addresses instantly to receive activation emails and registrations safely.",
-  keywords: "temp mail, temporary email, disposable email, fake email, temporary email address, 10 minute mail",
-  authors: [{ name: "Muaqt" }],
+export const metadata = {
   metadataBase: new URL(baseUrl),
-  openGraph: {
-    title: "Muaqt | Temporary Disposable Email Service",
-    description: "Free temporary email service. Create disposable email addresses instantly.",
-    type: "website",
-    locale: "en_US",
-    siteName: "Muaqt",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Muaqt | Temporary Disposable Email Service",
-    description: "Free temporary email service. Create disposable email addresses instantly.",
-  },
-  robots: "index, follow",
-  manifest: "/manifest.json",
   icons: {
     icon: "/favicon.svg",
     apple: "/icons/icon-192x192.png",
   },
+  manifest: "/manifest.json",
+  robots: "index, follow",
 };
 
 export default function RootLayout({
@@ -62,10 +44,6 @@ export default function RootLayout({
               })();
             `,
           }}
-        />
-        <Script
-          src="https://pl30141370.effectivecpmnetwork.com/e9/36/b8/e936b8e17586d9a15ee652b68ee40e77.js"
-          strategy="afterInteractive"
         />
       </head>
       <body className="bg-bg-dark text-text-primary min-h-screen flex flex-col" suppressHydrationWarning>

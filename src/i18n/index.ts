@@ -40,5 +40,25 @@ export function getDirection(locale: SupportedLocale): "ltr" | "rtl" {
   return isRTL(locale) ? "rtl" : "ltr";
 }
 
+export function getPathWithoutLocale(pathname: string): string {
+  for (const l of SUPPORTED_LOCALES) {
+    if (pathname === `/${l}`) return "/";
+    if (pathname.startsWith(`/${l}/`)) return pathname.slice(l.length + 1);
+  }
+  return pathname;
+}
+
+export function localizePath(pathname: string, locale: string): string {
+  const clean = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  return `/${locale}${clean === "/" ? "" : clean}`;
+}
+
+export function getLocaleFromPathname(pathname: string): SupportedLocale {
+  const match = SUPPORTED_LOCALES.find(
+    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+  );
+  return match || DEFAULT_LOCALE;
+}
+
 export type { SupportedLocale };
 export { SUPPORTED_LOCALES, DEFAULT_LOCALE };

@@ -13,7 +13,7 @@ import { SUPPORTED_LOCALES } from "@/i18n";
 
 function Flag({ locale }: { locale: SupportedLocale }) {
   const flagMap: Record<SupportedLocale, string> = {
-    ar: "/flags/arabian.svg",
+    ar: "/flags/ar.svg",
     en: "/flags/en.svg",
     fr: "/flags/fr.svg",
     es: "/flags/es.svg",
@@ -40,7 +40,7 @@ const localeNames: Record<SupportedLocale, string> = {
 
 export default function Header() {
   const pathname = usePathname();
-  const { locale, setLocale, t } = useLanguage();
+  const { locale, setLocale, t, localizePath } = useLanguage();
   const { isDark, toggle } = useTheme();
   const { session, createNewEmail, loading } = useEmail();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -64,11 +64,16 @@ export default function Header() {
     { href: "/contact", label: t.nav.contact },
   ];
 
+  const isActive = (href: string) => {
+    const localized = localizePath(href);
+    return pathname === localized;
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href={localizePath("/")} className="flex items-center gap-2 shrink-0">
             <Logo />
           </Link>
 
@@ -76,9 +81,9 @@ export default function Header() {
             {navItems.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={localizePath(item.href)}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  pathname === item.href
+                  isActive(item.href)
                     ? "text-primary bg-primary/10"
                     : "text-text-secondary hover:text-text-primary hover:bg-surface"
                 }`}
@@ -90,7 +95,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          {session && pathname !== "/" && (
+          {session && pathname !== localizePath("/") && (
             <button
               onClick={createNewEmail}
               disabled={loading}
@@ -166,10 +171,10 @@ export default function Header() {
             {navItems.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={localizePath(item.href)}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                  pathname === item.href
+                  isActive(item.href)
                     ? "text-primary bg-primary/10"
                     : "text-text-secondary hover:text-text-primary hover:bg-surface"
                 }`}
@@ -179,14 +184,14 @@ export default function Header() {
             ))}
           </nav>
           <Link
-            href="/privacy"
+            href={localizePath("/privacy")}
             onClick={() => setMobileMenuOpen(false)}
             className="px-3 py-2 text-sm text-text-muted hover:text-text-secondary"
           >
             {t.nav.privacy}
           </Link>
           <Link
-            href="/terms"
+            href={localizePath("/terms")}
             onClick={() => setMobileMenuOpen(false)}
             className="px-3 py-2 text-sm text-text-muted hover:text-text-secondary"
           >
