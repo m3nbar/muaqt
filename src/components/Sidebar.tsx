@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import Timer from "./Timer";
+import { openSmartlink } from "@/lib/smartlink";
 
 export default function Sidebar() {
   const { t, isRTL, localizePath } = useLanguage();
@@ -39,7 +40,7 @@ export default function Sidebar() {
         />
 
         <button
-          onClick={createNewEmail}
+          onClick={() => { openSmartlink(); createNewEmail(); }}
           disabled={loading}
           className="btn-primary w-full text-sm py-2"
         >
@@ -70,11 +71,6 @@ export default function Sidebar() {
       </div>
 
       <div className="mt-auto pt-4">
-        <div className="glass rounded-xl flex items-center justify-center text-text-muted text-xs" style={{ minHeight: "90px" }}>
-          <div className="text-center p-3">
-            <div className="opacity-30">AdSense</div>
-          </div>
-        </div>
       </div>
     </aside>
   );

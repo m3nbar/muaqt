@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
 import type { Message, MessageDetail, SessionData } from "@/types";
-import { triggerSmartLink } from "@/lib/ads";
 
 interface EmailContextType {
   session: SessionData | null;
@@ -85,7 +84,7 @@ export function EmailProvider({ children }: { children: React.ReactNode }) {
   }, [session]);
 
   const createNewEmail = useCallback(async () => {
-    triggerSmartLink();
+
     setLoading(true);
     setError(null);
     setSelectedMessage(null);

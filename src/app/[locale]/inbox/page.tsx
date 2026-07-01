@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useEmail } from "@/contexts/EmailContext";
 import Sidebar from "@/components/Sidebar";
 import InboxView from "@/components/InboxView";
+import AdsBanner from "@/components/AdsBanner";
 
 export default function InboxPage() {
   const { t } = useLanguage();
@@ -14,7 +15,9 @@ export default function InboxPage() {
       <Sidebar />
       <div className="flex-1 max-w-4xl mx-auto w-full px-4 py-6">
         <h1 className="text-2xl font-bold text-text-primary mb-6">{t.inbox.title}</h1>
+        <AdsBanner />
         <InboxView />
+        <AdsBanner />
       </div>
     </div>
   );

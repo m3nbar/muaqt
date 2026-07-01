@@ -1,17 +1,17 @@
 "use client";
 
 import { useLanguage } from "@/contexts/LanguageContext";
-import AdPlaceholder from "@/components/AdPlaceholder";
+import AdsBanner from "@/components/AdsBanner";
 
 export default function FAQPage() {
   const { t } = useLanguage();
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
-      <AdPlaceholder className="w-full mb-6" />
       <h1 className="text-3xl font-bold text-text-primary mb-2">{t.faq.title}</h1>
       <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent rounded-full mb-8" />
 
+      <AdsBanner />
       <div className="flex flex-col gap-3">
         {t.faq.items.map((item, i) => (
           <details key={i} className="glass-card group overflow-hidden">
@@ -30,7 +30,7 @@ export default function FAQPage() {
           </details>
         ))}
       </div>
-      <AdPlaceholder className="w-full mt-8" />
+      <AdsBanner />
     </div>
   );
 }

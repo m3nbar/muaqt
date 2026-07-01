@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { formatDate } from "@/utils/formatDate";
 import { cn } from "@/utils/cn";
 import MessageDetail from "./MessageDetail";
-import AdPlaceholder from "./AdPlaceholder";
+import { openSmartlink } from "@/lib/smartlink";
 
 export default function InboxView() {
   const { t, locale } = useLanguage();
@@ -79,7 +79,7 @@ export default function InboxView() {
           <div className="text-6xl mb-4">📬</div>
           <h2 className="text-xl font-semibold text-text-primary mb-2">{t.inbox.title}</h2>
           <p className="text-text-secondary text-sm mb-6">{t.hero.subtitle}</p>
-          <button onClick={createNewEmail} disabled={loading} className="btn-primary">
+          <button onClick={() => { openSmartlink(); createNewEmail(); }} disabled={loading} className="btn-primary">
             {loading ? (
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -153,7 +153,7 @@ export default function InboxView() {
             </div>
           </div>
           <button
-            onClick={createNewEmail}
+            onClick={() => { openSmartlink(); createNewEmail(); }}
             disabled={loading}
             className="btn-primary text-xs py-1.5 px-3 shrink-0"
           >
@@ -169,8 +169,6 @@ export default function InboxView() {
           </span>
         </div>
       )}
-
-      <AdPlaceholder className="w-full" />
 
       {error && (
         <div className="glass-card p-3 border-red-500/20 bg-red-500/5">
@@ -192,7 +190,6 @@ export default function InboxView() {
             <div className="text-5xl mb-4 opacity-30">📭</div>
             <h3 className="text-lg font-medium text-text-primary mb-1">{t.inbox.empty}</h3>
             <p className="text-sm text-text-muted">{t.inbox.emptyDesc}</p>
-            <AdPlaceholder className="w-full mt-8" />
           </div>
         ) : (
           messages.flatMap((msg, idx) => [
@@ -228,12 +225,9 @@ export default function InboxView() {
                 </div>
               </div>
             </button>,
-            ...((idx + 1) % 3 === 0 ? [<AdPlaceholder key={`ad-${idx}`} className="w-full" />] : []),
           ])
         )}
       </div>
-
-      <AdPlaceholder className="w-full" />
 
       {selectedMessage && detailOpen && (
         <MessageDetail message={selectedMessage} onClose={() => { setDetailOpen(false); clearSelectedMessage(); }} onDelete={() => { deleteMsg(selectedMessage.id); setDetailOpen(false); }} />

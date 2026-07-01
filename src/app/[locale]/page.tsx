@@ -6,7 +6,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import Logo from "@/components/Logo";
 import InboxView from "@/components/InboxView";
-import AdPlaceholder from "@/components/AdPlaceholder";
+import AdsBanner from "@/components/AdsBanner";
+import { openSmartlink } from "@/lib/smartlink";
 
 export default function HomePage() {
   const { session, loading, createNewEmail, messages, newCount } = useEmail();
@@ -36,7 +37,7 @@ export default function HomePage() {
             </p>
 
             {!session && !loading && (
-              <button onClick={createNewEmail} className="btn-primary text-lg px-8 py-3">
+              <button onClick={() => { openSmartlink(); createNewEmail(); }} className="btn-primary text-lg px-8 py-3">
                 {t.hero.createEmail}
               </button>
             )}
@@ -52,11 +53,10 @@ export default function HomePage() {
             )}
           </div>
 
-          <AdPlaceholder className="w-full mb-6" />
-          <AdPlaceholder className="w-full mb-6"  />
-
           <div className="max-w-4xl mx-auto">
+            <AdsBanner />
             <InboxView />
+            <AdsBanner />
           </div>
         </div>
       </section>

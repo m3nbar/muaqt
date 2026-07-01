@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import { triggerSmartLinkOnce } from "@/lib/ads";
+import AdsBanner from "@/components/AdsBanner";
+import { openSmartlink } from "@/lib/smartlink";
 
 export default function ContactPage() {
   const { t } = useLanguage();
@@ -13,9 +13,9 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    openSmartlink();
     setSending(true);
     setStatus("idle");
-    triggerSmartLinkOnce();
 
     try {
       const res = await fetch("/api/contact", {
@@ -39,10 +39,10 @@ export default function ContactPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
-      <AdPlaceholder className="w-full mb-6" />
       <h1 className="text-3xl font-bold text-text-primary mb-2">{t.contact.title}</h1>
       <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent rounded-full mb-8" />
 
+      <AdsBanner />
       <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-text-secondary mb-1">{t.contact.name}</label>
@@ -105,7 +105,7 @@ export default function ContactPage() {
           </div>
         )}
       </form>
-      <AdPlaceholder className="w-full mt-8" />
+      <AdsBanner />
     </div>
   );
 }

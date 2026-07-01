@@ -8,6 +8,7 @@ import Logo from "./Logo";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useEmail } from "@/contexts/EmailContext";
+import { openSmartlink } from "@/lib/smartlink";
 import type { SupportedLocale } from "@/types";
 import { SUPPORTED_LOCALES } from "@/i18n";
 
@@ -97,7 +98,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           {session && pathname !== localizePath("/") && (
             <button
-              onClick={createNewEmail}
+              onClick={() => { openSmartlink(); createNewEmail(); }}
               disabled={loading}
               className="btn-primary text-sm px-4 py-2 hidden sm:block"
             >
