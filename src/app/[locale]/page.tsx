@@ -54,9 +54,9 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <AdsBanner />
+            <AdsBanner id="home-top" />
             <InboxView />
-            <AdsBanner />
+            <AdsBanner id="home-bottom" />
           </div>
         </div>
       </section>

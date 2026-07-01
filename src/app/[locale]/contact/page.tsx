@@ -42,7 +42,7 @@ export default function ContactPage() {
       <h1 className="text-3xl font-bold text-text-primary mb-2">{t.contact.title}</h1>
       <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent rounded-full mb-8" />
 
-      <AdsBanner />
+      <AdsBanner id="contact-top" />
       <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-text-secondary mb-1">{t.contact.name}</label>
@@ -105,7 +105,7 @@ export default function ContactPage() {
           </div>
         )}
       </form>
-      <AdsBanner />
+      <AdsBanner id="contact-bottom" />
     </div>
   );
 }

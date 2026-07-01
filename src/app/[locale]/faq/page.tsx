@@ -11,7 +11,7 @@ export default function FAQPage() {
       <h1 className="text-3xl font-bold text-text-primary mb-2">{t.faq.title}</h1>
       <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent rounded-full mb-8" />
 
-      <AdsBanner />
+      <AdsBanner id="faq-top" />
       <div className="flex flex-col gap-3">
         {t.faq.items.map((item, i) => (
           <details key={i} className="glass-card group overflow-hidden">
@@ -30,7 +30,7 @@ export default function FAQPage() {
           </details>
         ))}
       </div>
-      <AdsBanner />
+      <AdsBanner id="faq-bottom" />
     </div>
   );
 }

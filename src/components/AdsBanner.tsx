@@ -1,57 +1,55 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 
 const DESKTOP_KEY = "c32c2d55f578be8017401bd0b459c5c7";
 const MOBILE_KEY = "5ea2a11b2db1bbd4bc96ee33434bd6de";
 
-export default function AdsBanner() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(true);
-
-  useEffect(() => {
-    setMounted(true);
-    const check = () => setIsDesktop(window.innerWidth >= 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    const container = containerRef.current;
-    if (!container) return;
-
-    container.querySelectorAll("iframe, script[src*='invoke.js']").forEach((el) => el.remove());
-
-    const key = isDesktop ? DESKTOP_KEY : MOBILE_KEY;
-    (window as any).atOptions = {
-      key,
-      format: "iframe",
-      width: isDesktop ? 728 : 320,
-      height: isDesktop ? 90 : 50,
-      params: {},
-    };
-
-    const script = document.createElement("script");
-    script.src = `https://www.highperformanceformat.com/${key}/invoke.js`;
-    script.async = true;
-    container.appendChild(script);
-
-    return () => {
-      container.querySelectorAll("iframe, script[src*='invoke.js']").forEach((el) => el.remove());
-    };
-  }, [mounted, isDesktop]);
-
+export default function AdsBanner({ id }: { id: string }) {
   return (
     <>
-      <Script id="adsterra-config" strategy="afterInteractive">
-        {`window.atOptions=window.atOptions||{key:'${DESKTOP_KEY}',format:'iframe',width:728,height:90,params:{}}`}
+      <Script id={`adsterra-d-${id}`} strategy="afterInteractive">
+        {`
+          if(window.innerWidth >= 768){
+            window.atOptions = {
+              key: '${DESKTOP_KEY}',
+              format: 'iframe',
+              width: 728,
+              height: 90,
+              params: {}
+            };
+            var c=document.getElementById('adstr-${id}');
+            if(c){
+              var s=document.createElement('script');
+              s.src='https://www.highperformanceformat.com/${DESKTOP_KEY}/invoke.js';
+              s.async=true;
+              c.appendChild(s);
+            }
+          }
+        `}
+      </Script>
+      <Script id={`adsterra-m-${id}`} strategy="afterInteractive">
+        {`
+          if(window.innerWidth < 768){
+            window.atOptions = {
+              key: '${MOBILE_KEY}',
+              format: 'iframe',
+              width: 320,
+              height: 50,
+              params: {}
+            };
+            var c=document.getElementById('adstr-${id}');
+            if(c){
+              var s=document.createElement('script');
+              s.src='https://www.highperformanceformat.com/${MOBILE_KEY}/invoke.js';
+              s.async=true;
+              c.appendChild(s);
+            }
+          }
+        `}
       </Script>
       <div className="flex justify-center items-center my-4 overflow-hidden">
-        <div ref={containerRef} className="w-full min-h-[50px] md:min-h-[90px]" />
+        <div id={`adstr-${id}`} className="w-full min-h-[50px] md:min-h-[90px]" />
       </div>
     </>
   );

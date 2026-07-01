@@ -33,7 +33,7 @@ export default function TermsPage() {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-text-primary mb-2">{t.nav.terms}</h1>
       <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent rounded-full mb-8" />
-      <AdsBanner />
+      <AdsBanner id="terms-top" />
       <div className="flex flex-col gap-6">
         {content.map((section, i) => (
           <div key={i}>
@@ -42,7 +42,7 @@ export default function TermsPage() {
           </div>
         ))}
       </div>
-      <AdsBanner />
+      <AdsBanner id="terms-bottom" />
     </div>
   );
 }

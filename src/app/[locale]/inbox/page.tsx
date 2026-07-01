@@ -15,9 +15,9 @@ export default function InboxPage() {
       <Sidebar />
       <div className="flex-1 max-w-4xl mx-auto w-full px-4 py-6">
         <h1 className="text-2xl font-bold text-text-primary mb-6">{t.inbox.title}</h1>
-        <AdsBanner />
+        <AdsBanner id="inbox-top" />
         <InboxView />
-        <AdsBanner />
+        <AdsBanner id="inbox-bottom" />
       </div>
     </div>
   );
